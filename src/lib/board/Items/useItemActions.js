@@ -292,10 +292,9 @@ const useItemActions = () => {
       });
 
       insertItems(itemsWithPosition, beforeId);
-
-      updateItemExtent();
+      placeItems(itemsToInsert.map((item) => item.id));
     },
-    [getCenter, insertItems, updateItemExtent]
+    [getCenter, insertItems, placeItems]
   );
 
   const pushItem = React.useCallback(

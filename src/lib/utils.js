@@ -212,14 +212,19 @@ const getLinkedItemsRecursive = (itemMap, itemIds, alreadyMet = null) => {
         return [];
       } else {
         alreadyMet.add(itemId);
-        return [
-          itemId,
-          ...getLinkedItemsRecursive(
-            itemMap,
-            itemMap[itemId].linkedItems,
-            alreadyMet
-          ),
-        ];
+        if (itemMap[itemId]) {
+          // If the item has been removed but not from linked list
+          return [
+            itemId,
+            ...getLinkedItemsRecursive(
+              itemMap,
+              itemMap[itemId].linkedItems,
+              alreadyMet
+            ),
+          ];
+        } else {
+          return [];
+        }
       }
     })
     .flat();
