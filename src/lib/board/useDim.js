@@ -392,6 +392,12 @@ const useDim = () => {
     200
   );
 
+  React.useEffect(() => {
+    window.debugUpdateExtent = () => updateItemExtent();
+    window.debugDisplayExtent = () =>
+      console.log(getConfiguration().itemExtent);
+  }, [getConfiguration, updateItemExtent]);
+
   return {
     setDim: setDimSafe,
     rotateBoard,

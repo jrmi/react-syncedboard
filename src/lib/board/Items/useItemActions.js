@@ -123,10 +123,8 @@ const useItemActions = () => {
         getLinkedItems(getStoreItems(), getItemIds(), itemIds),
         posDelta
       );
-
-      updateItemExtent();
     },
-    [getItemIds, getStoreItems, moveStoreItems, updateItemExtent]
+    [getItemIds, getStoreItems, moveStoreItems]
   );
 
   const putItemsOnTop = React.useCallback(
@@ -292,7 +290,7 @@ const useItemActions = () => {
       });
 
       insertItems(itemsWithPosition, beforeId);
-      placeItems(itemsToInsert.map((item) => item.id));
+      placeItems(itemsToInsert.map(({ id }) => id));
     },
     [getCenter, insertItems, placeItems]
   );
