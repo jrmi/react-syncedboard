@@ -1,4 +1,11 @@
 
+1.2.7 / 2024-07-21
+==================
+
+  * Use board uid and getElementById
+  * Improve performances
+  * Fix bug if missing linked item
+
 1.2.6 / 2024-03-09
 ==================
 
