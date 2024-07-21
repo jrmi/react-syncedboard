@@ -1,8 +1,10 @@
 import React, { memo } from "react";
 
-import ResizeHandler from "./ResizeHandler";
 import { css } from "goober";
 import deepEqual from "fast-deep-equal";
+
+import ResizeHandler from "./ResizeHandler";
+import useMainStore from "../store/main";
 
 const itemClass = css`
   display: inline-block;
@@ -184,6 +186,7 @@ const Item = ({
   showResizeHandle = true,
 }) => {
   const itemWrapperRef = React.useRef(null);
+  const [uid] = useMainStore((state) => [state.config.uid]);
 
   const {
     component: Component = () => null,
@@ -244,6 +247,7 @@ const Item = ({
     <div
       style={{ transform: `rotate(${rotation}deg` }}
       data-id={id}
+      id={`${uid}__${id}`}
       className={className}
     >
       <div

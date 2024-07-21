@@ -45,14 +45,14 @@ const BoundingBox = () => {
   // Update selection bounding box
   const updateBox = React.useCallback(() => {
     const currentSelectedItems = getSelection();
-    const { boardWrapperRect, boardWrapper } = getConfiguration();
+    const { boardWrapperRect, uid } = getConfiguration();
 
     if (currentSelectedItems.length === 0) {
       setSelectionBox(null);
       return;
     }
 
-    const boundingBox = getItemsBoundingBox(currentSelectedItems, boardWrapper);
+    const boundingBox = getItemsBoundingBox(currentSelectedItems, uid);
 
     if (!boundingBox) {
       setSelectionBox(null);

@@ -323,11 +323,11 @@ const useDim = () => {
   const updateItemExtent = React.useCallback(() => {
     // Update item extent
     const items = getItemList();
-    const { boardWrapper, boardSize } = getConfiguration();
+    const { boardSize, uid } = getConfiguration();
 
     const newRes = items.reduce(
       (boundingBox, item) => {
-        const elem = getItemElem(boardWrapper, item.id);
+        const elem = getItemElem(uid, item.id);
 
         if (elem) {
           boundingBox.left = Math.min(item.x, boundingBox.left);
@@ -391,6 +391,12 @@ const useDim = () => {
     [updateItemExtent],
     200
   );
+
+  React.useEffect(() => {
+    window.debugUpdateExtent = () => updateItemExtent();
+    window.debugDisplayExtent = () =>
+      console.log(getConfiguration().itemExtent);
+  }, [getConfiguration, updateItemExtent]);
 
   return {
     setDim: setDimSafe,

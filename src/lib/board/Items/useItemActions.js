@@ -123,10 +123,8 @@ const useItemActions = () => {
         getLinkedItems(getStoreItems(), getItemIds(), itemIds),
         posDelta
       );
-
-      updateItemExtent();
     },
-    [getItemIds, getStoreItems, moveStoreItems, updateItemExtent]
+    [getItemIds, getStoreItems, moveStoreItems]
   );
 
   const putItemsOnTop = React.useCallback(
@@ -144,12 +142,12 @@ const useItemActions = () => {
 
   const stickOnGrid = React.useCallback(
     (itemIds, { type: globalType, size: globalSize } = {}) => {
-      const { boardWrapper } = getConfiguration();
+      const { uid } = getConfiguration();
 
       batchUpdateItems(
         itemIds,
         (item) => {
-          const elem = getItemElem(boardWrapper, item.id);
+          const elem = getItemElem(uid, item.id);
 
           if (!elem) {
             return;
@@ -292,10 +290,9 @@ const useItemActions = () => {
       });
 
       insertItems(itemsWithPosition, beforeId);
-
-      updateItemExtent();
+      placeItems(itemsToInsert.map(({ id }) => id));
     },
-    [getCenter, insertItems, updateItemExtent]
+    [getCenter, insertItems, placeItems]
   );
 
   const pushItem = React.useCallback(
@@ -351,11 +348,11 @@ const useItemActions = () => {
         if (hasClass(target, "passthrough")) {
           // Get current value
           const itemList = getItemIds();
-          const { boardWrapper } = getConfiguration();
+          const { uid } = getConfiguration();
 
           // Found element under the cursor
           const elements = itemList.reduce((prev, itemId) => {
-            const elem = getItemElem(boardWrapper, itemId);
+            const elem = getItemElem(uid, itemId);
             const itemRect = elem.getBoundingClientRect();
             if (isPointInsideRect({ x: clientX, y: clientY }, itemRect)) {
               prev.unshift(elem);
