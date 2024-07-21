@@ -122,18 +122,17 @@ export const isItemInsideElement = (itemElement, otherElem) => {
   return result;
 };
 
-export const getItemElem = (wrapper, itemId) => {
+export const getItemElem = (uid, itemId) => {
   try {
-    const elems = wrapper.getElementsByClassName(`item ${itemId}`);
-    const elem = elems[0];
+    const elem = document.getElementById(`${uid}__${itemId}`);
     if (!elem) {
       console.error(`Missing item ${itemId}`);
     }
     return elem;
   } catch (e) {
     console.error(
-      `Error while getting item with id ${itemId} with wrapper`,
-      wrapper
+      `Error while getting item with id ${itemId} inside wrapper`,
+      uid
     );
     return undefined;
   }
@@ -153,9 +152,9 @@ export const getIdFromElem = (elem) => {
   return value;
 };
 
-export const getItemsBoundingBox = (itemIds, wrapper = document) => {
+export const getItemsBoundingBox = (itemIds, uid) => {
   const result = itemIds.reduce((prev, itemId) => {
-    const elem = getItemElem(wrapper, itemId);
+    const elem = getItemElem(uid, itemId);
 
     if (!elem) {
       if (!prev) {

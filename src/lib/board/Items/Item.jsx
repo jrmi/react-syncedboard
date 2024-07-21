@@ -247,7 +247,7 @@ const Item = ({
     <div
       style={{ transform: `rotate(${rotation}deg` }}
       data-id={id}
-      id={`${uid}_${id}`}
+      id={`${uid}__${id}`}
       className={className}
     >
       <div
